@@ -2250,3 +2250,7 @@ border-radius: 50%;}
     display: none;
   }
 }
+.logo_login{
+  height: 60%;
+  width: 60%;
+}
