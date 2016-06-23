@@ -9,11 +9,11 @@
 					</div>
 					<div class="form-group">
 						<label class="control-label">Usuario</label>
-						<input id="usuario" type="text" class="form-control" name="username" />
+						<input id="usuario" type="text" class="form-control" name="username" required />
 					</div>
 					<div class="form-group">
 						<label class="control-label">Contraseña</label>
-						<input id="contra" type="password" class="form-control" name="password" />
+						<input id="contra" type="password" class="form-control" name="password" required />
 					</div>
 					<div class="text-center">
 						<a onclick="validar();" class="btn btn-primary">Entrar</a>
@@ -32,6 +32,24 @@
 </div>
 <script type="text/javascript">
 	function validar () {
+		if($("#usuario").val()==""){
+			$("#alerta").html(''+
+						'<div id="danger" class="alert alert-danger fade in">'+
+    						'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'+
+    						'<strong>Errror!</strong> Favor de introducir el usuario'+
+  						'</div>');
+			$("#usuario").focus();
+			return false;
+		}
+		if($("#contra").val()==""){
+			$("#alerta").html(''+
+						'<div id="danger" class="alert alert-danger fade in">'+
+    						'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'+
+    						'<strong>Errror!</strong> Favor de introducir la contraseña'+
+  						'</div>');
+			$("#contra").focus();
+			return false;
+		}
 		$.ajax({
 			url:'<?php echo base_url();?>index.php/login/validausuario',
 			type:'POST',
@@ -43,12 +61,8 @@
     						'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'+
     						'<strong>Errror!</strong> Usuario y/o Contraseña equivocada.'+
   						'</div>');
-				}else{
-					$("#alerta").html(''+
-						'<div id="success" class="alert alert-success fade in">'+
-    						'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'+
-    						'<strong>Exito!</strong>Usuario y/o Contraseña correctos.'+
-  						'</div>');
+				}if(data=="si"){
+					window.location.assign('<?php echo base_url();?>index.php/menu');
 				}
 			}
 		});
